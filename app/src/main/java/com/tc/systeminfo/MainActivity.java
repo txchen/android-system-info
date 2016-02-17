@@ -3,9 +3,12 @@ package com.tc.systeminfo;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.text.format.Formatter;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,12 +29,19 @@ public class MainActivity extends AppCompatActivity {
         tv.append("\nGSF_ID = " + getGSFId(getApplicationContext()));
 
         // IMEI
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        tv.append("\nIMEI = " + telephonyManager.getDeviceId());
 
         // Sim Subscriber ID
+        tv.append(String.format("\nSIM_SUBSCRIBER_ID = %s", telephonyManager.getSubscriberId()));
 
         // Sim Card Serial
+        tv.append(String.format("\nSIM_SERIAL = %s", telephonyManager.getSimSerialNumber()));
 
-        // Local IP addresses
+        // Local IP address V4
+        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+        tv.append(String.format("\nLOCAL_IP_ADDRESS = %s", ip));
 
         // Wi-Fi MAC
 
