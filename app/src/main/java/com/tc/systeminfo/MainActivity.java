@@ -74,8 +74,11 @@ public class MainActivity extends AppCompatActivity {
         // CPU_ABI
 
         // Version Codename
+        tv.append(String.format("\nVERSION_CODENAME = %s", Build.VERSION.CODENAME));
         // Version Incremental
+        tv.append(String.format("\nVERSION_INCREMENTAL = %s", Build.VERSION.INCREMENTAL));
         // Version Sdk
+        tv.append(String.format("\nVERSION_SDK = %s", Build.VERSION.SDK));
 
         // Display Density
         DisplayMetrics metrics = getResources().getDisplayMetrics();
