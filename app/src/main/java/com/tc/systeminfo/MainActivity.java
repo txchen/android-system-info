@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -61,8 +62,11 @@ public class MainActivity extends AppCompatActivity {
         // Device Build Fingerprints
 
         // Manufacture
+        tv.append(String.format("\nBUILD_MANUFACTURE = %s", Build.MANUFACTURER));
         // Model
+        tv.append(String.format("\nBUILD_MODEL = %s", Build.MODEL));
         // Device
+        tv.append(String.format("\nBUILD_DEVICE = %s", Build.DEVICE));
 
         // User Agent * 3
 
