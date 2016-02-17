@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
+import android.util.DisplayMetrics;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
@@ -77,11 +78,18 @@ public class MainActivity extends AppCompatActivity {
         // Version Sdk
 
         // Display Density
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        tv.append(String.format("\nDISPLAY_DENSITY = %.2f", metrics.density));
         // Display Density Dpi
+        tv.append(String.format("\nDISPLAY_DENSITY_DPI = %d", metrics.densityDpi));
         // Display Density xDpi
+        tv.append(String.format("\nDISPLAY_X_DPI = %.3f", metrics.xdpi));
         // Display Density yDpi
+        tv.append(String.format("\nDISPLAY_Y_DPI = %.3f", metrics.ydpi));
         // Display widthPixels
+        tv.append(String.format("\nDISPLAY_WIDTH_PIXELS = %d", metrics.widthPixels));
         // Display heightPixels
+        tv.append(String.format("\nDISPLAY_HEIGHT_PIXELS = %d", metrics.heightPixels));
     }
 
     private static String getGSFId(Context context) {
