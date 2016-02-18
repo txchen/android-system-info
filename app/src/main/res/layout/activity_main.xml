@@ -14,6 +14,8 @@
         android:layout_height="wrap_content"
         android:text="test"
         android:id="@+id/textViewInfo"
+        android:maxLines = "1000"
+        android:scrollbars = "vertical"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"

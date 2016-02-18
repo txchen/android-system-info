@@ -12,7 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
+import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView tv = (TextView) findViewById(R.id.textViewInfo);
+        tv.setMovementMethod(new ScrollingMovementMethod());
         tv.setText("SystemInfo:\n");
 
         // android device id
@@ -61,17 +65,26 @@ public class MainActivity extends AppCompatActivity {
         tv.append(String.format("\nHARDWARE_SERIAL = %s", android.os.Build.SERIAL));
 
         // Device Build Fingerprints
+        // TODO
 
         // Manufacture
         tv.append(String.format("\nBUILD_MANUFACTURE = %s", Build.MANUFACTURER));
         // Model
         tv.append(String.format("\nBUILD_MODEL = %s", Build.MODEL));
+        // ID
+        tv.append(String.format("\nBUILD_ID = %s", Build.ID));
         // Device
         tv.append(String.format("\nBUILD_DEVICE = %s", Build.DEVICE));
 
         // User Agent * 3
+        Context ctx = getApplicationContext();
+        WebSettings ws = new WebView(ctx).getSettings();
+        tv.append(String.format("\nUA_HTTP_AGENT = %s", System.getProperty("http.agent")));
+        tv.append(String.format("\nUA_DEFAULT_USER_AGENT = %s", ws.getDefaultUserAgent(ctx)));
+        tv.append(String.format("\nUA_USER_AGENT_STRING = %s", ws.getUserAgentString()));
 
         // CPU_ABI
+        tv.append(String.format("\nOS_ARCH = %s", System.getProperty("os.arch")));
 
         // Version Codename
         tv.append(String.format("\nVERSION_CODENAME = %s", Build.VERSION.CODENAME));
