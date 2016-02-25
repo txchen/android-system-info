@@ -65,8 +65,7 @@ public class MainActivity extends AppCompatActivity {
         tv.append(String.format("\nHARDWARE_SERIAL = %s", android.os.Build.SERIAL));
 
         // Device Build Fingerprints
-        // TODO
-
+        tv.append(String.format("\nBUILD_FINGERPRINTS = %s", Build.FINGERPRINT));
         // Manufacture
         tv.append(String.format("\nBUILD_MANUFACTURE = %s", Build.MANUFACTURER));
         // Model
