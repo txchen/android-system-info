@@ -18,16 +18,20 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+
 import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView tv = (TextView) findViewById(R.id.textViewInfo);
+        tv = (TextView) findViewById(R.id.textViewInfo);
         tv.setMovementMethod(new ScrollingMovementMethod());
         tv.setText("SystemInfo:\n");
 
@@ -105,6 +109,35 @@ public class MainActivity extends AppCompatActivity {
         tv.append(String.format("\nDISPLAY_WIDTH_PIXELS = %d", metrics.widthPixels));
         // Display heightPixels
         tv.append(String.format("\nDISPLAY_HEIGHT_PIXELS = %d", metrics.heightPixels));
+
+        // get ads info
+        Thread thr = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Context ctx = MainActivity.this.getApplicationContext();
+                    AdvertisingIdClient.Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(ctx);
+                    gotAdsInfo(adInfo);
+                } catch (Exception e) {
+                    // All exceptions blocks
+                }
+                gotAdsInfo(null);
+            }
+        });
+        thr.start();
+    }
+
+    private void gotAdsInfo(final AdvertisingIdClient.Info adInfo) {
+        if (adInfo != null) {
+            // In case you need to use adInfo in UI thread
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    tv.append(String.format("\nADS_ID = %s", adInfo.getId()));
+                    tv.append(String.format("\nADS_LIMITTRACKING = %s", adInfo.isLimitAdTrackingEnabled()));
+                }
+            });
+        }
     }
 
     private static String getGSFId(Context context) {
